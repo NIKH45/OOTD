@@ -1,0 +1,10 @@
+# Node modules
+node_modules/
+ootd-backend/node_modules/
+
+# Environment variables (SECRET)
+.env
+*.env
+
+# Ignore prompt folder
+prompt/
