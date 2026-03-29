@@ -8,3 +8,7 @@ ootd-backend/node_modules/
 
 # Ignore prompt folder
 prompt/
+
+# Build output
+dist/
+ootd-backend/dist/
