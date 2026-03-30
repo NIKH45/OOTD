@@ -12,3 +12,6 @@ prompt/
 # Build output
 dist/
 ootd-backend/dist/
+
+## Ignore notes folder
+notes/
