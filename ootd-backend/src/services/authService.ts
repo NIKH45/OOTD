@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { Prisma, PrismaClient } from "@prisma/client";
+import { SignOptions } from "jsonwebtoken";
 import { AuthTokenPayload, generateToken } from "../utils/jwt";
 import { logger } from "../utils/logger";
 
@@ -52,6 +53,18 @@ export interface SignupResponse {
   user: SafeUser;
 }
 
+// Input contract for login operation.
+export interface LoginInput {
+  email: string;
+  password: string;
+}
+
+// Service result for login endpoint.
+export interface LoginResponse {
+  token: string;
+  user: SafeUser;
+}
+
 // Custom error type for input validation failures.
 export class SignupValidationError extends Error {
   constructor(public readonly errors: string[]) {
@@ -65,6 +78,22 @@ export class DuplicateEmailError extends Error {
   constructor() {
     super("Email is already registered");
     this.name = "DuplicateEmailError";
+  }
+}
+
+// Custom error type for login input validation failures.
+export class LoginValidationError extends Error {
+  constructor(public readonly errors: string[]) {
+    super("Validation failed");
+    this.name = "LoginValidationError";
+  }
+}
+
+// Generic auth failure error to avoid leaking whether email or password was wrong.
+export class InvalidCredentialsError extends Error {
+  constructor() {
+    super("Invalid email or password");
+    this.name = "InvalidCredentialsError";
   }
 }
 
@@ -115,6 +144,27 @@ const validateSignupInput = (input: SignupInput): void => {
 
   if (errors.length > 0) {
     throw new SignupValidationError(errors);
+  }
+};
+
+// Login validation keeps requirements minimal and explicit.
+const validateLoginInput = (input: LoginInput): void => {
+  const errors: string[] = [];
+
+  if (!input || typeof input !== "object") {
+    throw new LoginValidationError(["Request body must be a valid JSON object"]);
+  }
+
+  if (!input.email || typeof input.email !== "string" || !isEmail(input.email.trim())) {
+    errors.push("Email must be a valid format");
+  }
+
+  if (!input.password || typeof input.password !== "string" || input.password.trim().length === 0) {
+    errors.push("Password must not be empty");
+  }
+
+  if (errors.length > 0) {
+    throw new LoginValidationError(errors);
   }
 };
 
@@ -203,4 +253,67 @@ export const signupUser = async (input: SignupInput): Promise<SignupResponse> =>
 
     throw mapKnownPrismaError(error);
   }
+};
+
+// Core login workflow:
+// 1) validate input
+// 2) find user by email
+// 3) compare password using bcrypt.compare
+// 4) generate short-lived JWT
+// 5) return safe user (without password)
+export const loginUser = async (input: LoginInput): Promise<LoginResponse> => {
+  validateLoginInput(input);
+
+  const normalizedEmail = input.email.trim().toLowerCase();
+  const emailForLogs = maskEmail(normalizedEmail);
+
+  const user = await prisma.user.findUnique({
+    where: { email: normalizedEmail },
+    select: {
+      id: true,
+      email: true,
+      password: true,
+      username: true,
+      gender: true,
+      age: true,
+      height: true,
+      weight: true,
+      location: true,
+      createdAt: true,
+    },
+  });
+
+  if (!user) {
+    logger.warn("Failed login attempt: user not found", { email: emailForLogs });
+    throw new InvalidCredentialsError();
+  }
+
+  const isPasswordValid = await bcrypt.compare(input.password, user.password);
+  if (!isPasswordValid) {
+    logger.warn("Failed login attempt: incorrect password", {
+      userId: user.id,
+      email: emailForLogs,
+    });
+    throw new InvalidCredentialsError();
+  }
+
+  // Login token expiry is intentionally short for better security.
+  const loginTokenExpiry = (process.env.JWT_LOGIN_EXPIRES_IN || "1h") as SignOptions["expiresIn"];
+  const token = generateToken(
+    {
+      userId: user.id,
+      email: user.email,
+    },
+    loginTokenExpiry
+  );
+
+  // Remove password before returning user object.
+  const { password: _password, ...safeUser } = user;
+
+  logger.info("Login succeeded", {
+    userId: safeUser.id,
+    email: emailForLogs,
+  });
+
+  return { token, user: safeUser };
 };
