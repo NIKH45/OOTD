@@ -19,3 +19,10 @@ Backend API for OOTD built with:
    `npx prisma migrate dev`
 5. Start development server:
    `npm run dev`
+
+## add below in .env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/ootd?schema=public"
+JWT_SECRET="replace-with-a-strong-secret"
+JWT_EXPIRES_IN="7d"
+PORT=3001
+LOG_LEVEL=debug
