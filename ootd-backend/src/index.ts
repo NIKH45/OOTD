@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import authRoutes from "./routes/authRoutes";
+import protectedRoutes from "./routes/protectedRoutes";
 import { logger } from "./utils/logger";
 
 dotenv.config();
@@ -48,6 +49,9 @@ app.get("/health", (_req: Request, res: Response) => {
 
 // Mount all auth endpoints under /auth (example: POST /auth/signup).
 app.use("/auth", authRoutes);
+
+// Mount protected sample endpoints that require JWT middleware.
+app.use("/", protectedRoutes);
 
 // Centralized error handler to keep controllers focused on domain logic.
 app.use((error: unknown, req: Request, res: Response, _next: NextFunction) => {
