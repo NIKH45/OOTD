@@ -20,9 +20,10 @@ Backend API for OOTD built with:
 5. Start development server:
    `npm run dev`
 
-## add below in .env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/ootd?schema=public"
-JWT_SECRET="replace-with-a-strong-secret"
-JWT_EXPIRES_IN="7d"
-PORT=3001
-LOG_LEVEL=debug
+## UPDATE .env in ootd-backend
+
+1. DATABASE_URL="postgresql://postgres:postgres@localhost:5432/ootd?schema=public"
+2. JWT_SECRET="replace-with-a-strong-secret"
+3. JWT_EXPIRES_IN="7d"
+4. PORT=3001
+5. LOG_LEVEL=debug
