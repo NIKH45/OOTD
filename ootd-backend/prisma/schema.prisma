@@ -13,6 +13,7 @@ model User {
   password  String
   username  String
   gender    String
+  bodyType  String?
   age       Int
   height    Float
   weight    Float

@@ -1,11 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import {
+  CompleteProfileInput,
   DuplicateEmailError,
   InvalidCredentialsError,
   LoginInput,
   LoginValidationError,
+  ProfileValidationError,
   SignupInput,
   SignupValidationError,
+  completeUserProfile,
   loginUser,
   signupUser,
 } from "../services/authService";
@@ -29,7 +32,10 @@ export const signup = async (req: Request, res: Response, next: NextFunction): P
       email: result.user.email,
     });
 
-    res.status(201).json(result);
+    res.status(201).json({
+      message: "Signup successful",
+      ...result,
+    });
   } catch (error) {
     // Validation errors are client-side input issues -> 400 Bad Request.
     if (error instanceof SignupValidationError) {
@@ -45,11 +51,11 @@ export const signup = async (req: Request, res: Response, next: NextFunction): P
       return;
     }
 
-    // Duplicate email is a conflict with existing data -> 409 Conflict.
+    // Duplicate email is treated as bad request for simpler frontend handling.
     if (error instanceof DuplicateEmailError) {
       logger.warn("Signup failed due to duplicate email", { requestId });
 
-      res.status(409).json({
+      res.status(400).json({
         message: error.message,
       });
       return;
@@ -103,6 +109,54 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     }
 
     logger.error("Unexpected login controller error", {
+      requestId,
+      error,
+    });
+
+    next(error);
+  }
+};
+
+export const completeProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const requestId = (res.locals.requestId as string | undefined) ?? "unknown";
+
+  try {
+    if (!req.userId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
+    const payload = req.body as CompleteProfileInput;
+    const user = await completeUserProfile(req.userId, payload);
+
+    logger.info("Profile completion response sent", {
+      requestId,
+      userId: user.id,
+    });
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user,
+    });
+  } catch (error) {
+    if (error instanceof ProfileValidationError) {
+      logger.warn("Profile completion validation failed", {
+        requestId,
+        errors: error.errors,
+      });
+
+      res.status(400).json({
+        message: error.message,
+        errors: error.errors,
+      });
+      return;
+    }
+
+    logger.error("Unexpected complete profile controller error", {
       requestId,
       error,
     });

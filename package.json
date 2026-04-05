@@ -1,0 +1,25 @@
+{
+  "name": "ootd-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n BACKEND,WEB -c cyan,green \"npm run dev:backend\" \"npm run dev:web\"",
+    "dev:reset": "pkill -f \"next dev\" || true; pkill -f \"nodemon\" || true; pkill -f \"ts-node src/index.ts\" || true; npm run dev",
+    "dev:backend": "npm run dev --prefix ootd-backend",
+    "dev:web": "npm run dev --prefix ootd-frontend/web",
+    "dev:frontend": "npm run web --prefix ootd-frontend/mobile",
+    "dev:frontend:mobile": "npm run start --prefix ootd-frontend/mobile",
+    "dev:full-expo": "concurrently -n BACKEND,FRONTEND -c cyan,magenta \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "start:backend": "npm run start --prefix ootd-backend",
+    "start:frontend": "npm run start --prefix ootd-frontend/mobile",
+    "start:web": "npm run start --prefix ootd-frontend/web",
+    "build:web": "npm run build --prefix ootd-frontend/web",
+    "build:backend": "npm run build --prefix ootd-backend",
+    "typecheck:frontend": "npm run typecheck --prefix ootd-frontend/mobile",
+    "check": "npm run build:backend && npm run typecheck:frontend",
+    "check:web": "npm run build:web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

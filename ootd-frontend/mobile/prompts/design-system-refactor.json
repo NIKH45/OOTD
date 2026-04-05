@@ -1,0 +1,89 @@
+{
+  "role": "senior_frontend_engineer",
+  "task": "REFINE_EXISTING_DESIGN_SYSTEM",
+  "project_context": {
+    "project_name": "OOTD",
+    "architecture": "Expo (React Native Web + Mobile)",
+    "current_state": "basic design system already implemented",
+    "constraints": [
+      "do not rewrite from scratch",
+      "refactor and improve existing files",
+      "maintain compatibility with current components",
+      "use TypeScript",
+      "keep code clean and modular"
+    ]
+  },
+  "feature": {
+    "name": "Refine Design System to Neutral Elegance",
+    "description": "Upgrade existing design system to a premium neutral elegance style with better consistency and subtle depth",
+    "requirements": [
+      "update color palette to neutral elegance tones",
+      "ensure all components use centralized color constants",
+      "refine typography hierarchy for better readability",
+      "improve spacing consistency using 8px grid",
+      "replace harsh shadows with soft subtle shadows",
+      "remove unnecessary borders and replace with depth",
+      "ensure consistency across all style files"
+    ],
+    "design_guidelines": {
+      "colors": {
+        "background": "#F7F5F2",
+        "surface": "#FFFFFF",
+        "primary": "#E8E3DC",
+        "secondary": "#CFC6BB",
+        "textPrimary": "#2C2C2C",
+        "textSecondary": "#7A7A7A"
+      },
+      "ui_principles": [
+        "minimal and clean layout",
+        "high whitespace",
+        "soft shadows instead of borders",
+        "rounded corners (12px)",
+        "subtle depth and layering"
+      ]
+    },
+    "refactoring_tasks": [
+      "update colors.ts with new palette",
+      "normalize spacing.ts to follow 8px system",
+      "refactor typography.ts for clear heading and body hierarchy",
+      "update shadows.ts to use very soft shadows",
+      "update globalStyles.ts to apply new background and base styles",
+      "remove hardcoded styles from components and replace with design tokens"
+    ],
+    "ui_improvements": [
+      "ensure consistent padding across screens",
+      "standardize border radius",
+      "improve readability of text",
+      "ensure good contrast while keeping soft look"
+    ]
+  },
+  "output_requirements": {
+    "code_only": true,
+    "include_comments": true,
+    "modification_type": "refactor_existing_files",
+    "file_structure": [
+      "src/styles/colors.ts",
+      "src/styles/spacing.ts",
+      "src/styles/typography.ts",
+      "src/styles/shadows.ts",
+      "src/styles/globalStyles.ts",
+      "notes/design-system-refactor-notes.txt",
+      "prompts/design-system-refactor.json"
+    ]
+  },
+  "documentation_requirements": {
+    "notes_file": "notes/design-system-refactor-notes.txt",
+    "content": [
+      "What changes were made and why",
+      "How neutral elegance differs from basic design",
+      "How to maintain consistency in UI",
+      "Common mistakes in design systems",
+      "How to extend this design system in future"
+    ],
+    "style": "beginner-friendly but technically clear"
+  },
+  "prompt_storage": {
+    "save_prompt_to": "prompts/design-system-refactor.json",
+    "include_full_prompt": true
+  }
+}

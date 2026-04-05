@@ -1,0 +1,75 @@
+{
+  "role": "senior_frontend_engineer",
+  "task": "CREATE_DESIGN_SYSTEM",
+  "project_context": {
+    "project_name": "OOTD",
+    "architecture": "Expo (React Native Web + Mobile)",
+    "constraints": [
+      "use TypeScript",
+      "create reusable design system",
+      "minimal luxury UI",
+      "soft neutral color palette",
+      "no external UI libraries"
+    ]
+  },
+  "feature": {
+    "name": "Global Design System",
+    "description": "Create a consistent design system with colors, typography, spacing, and shadows for a premium fashion app",
+    "requirements": [
+      "define color palette based on soft beige and white tones",
+      "create typography system with heading and body styles",
+      "define spacing scale using 8px system",
+      "create shadow styles for soft 3D depth",
+      "export reusable style constants",
+      "ensure compatibility with React Native and web"
+    ],
+    "design_guidelines": {
+      "style": "minimal, luxury, high whitespace",
+      "colors": [
+        "#F8F6F2",
+        "#EDEAE3",
+        "#D6CFC7",
+        "#1A1A1A",
+        "#6B6B6B"
+      ],
+      "typography": {
+        "heading": "serif style",
+        "body": "clean sans-serif"
+      },
+      "ui_principles": [
+        "soft shadows instead of borders",
+        "rounded corners (12-16px)",
+        "subtle hover effects",
+        "clean layouts"
+      ]
+    }
+  },
+  "output_requirements": {
+    "code_only": true,
+    "include_comments": true,
+    "file_structure": [
+      "src/styles/colors.ts",
+      "src/styles/spacing.ts",
+      "src/styles/typography.ts",
+      "src/styles/shadows.ts",
+      "src/styles/globalStyles.ts",
+      "notes/design-system-notes.txt",
+      "prompts/design-system.json"
+    ]
+  },
+  "documentation_requirements": {
+    "notes_file": "notes/design-system-notes.txt",
+    "content": [
+      "What is a design system and why it is important",
+      "How color systems are designed",
+      "How spacing systems improve UI consistency",
+      "How shadows create depth in UI",
+      "Best practices for scalable frontend design"
+    ],
+    "style": "beginner-friendly with examples"
+  },
+  "prompt_storage": {
+    "save_prompt_to": "prompts/design-system.json",
+    "include_full_prompt": true
+  }
+}

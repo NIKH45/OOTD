@@ -1,0 +1,316 @@
+:root {
+  --bg: #f7f5f2;
+  --surface: #ffffff;
+  --primary: #e8e3dc;
+  --secondary: #cfc6bb;
+  --text-primary: #2c2c2c;
+  --text-secondary: #7a7a7a;
+  --danger: #b34f4f;
+  --shadow-soft: 0 12px 36px rgba(44, 44, 44, 0.1);
+  --shadow-card: 0 24px 50px rgba(44, 44, 44, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#__next {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Avenir Next", "Inter", "Segoe UI", sans-serif;
+  color: var(--text-primary);
+  background: var(--bg);
+}
+
+.auth-page {
+  min-height: 100vh;
+  padding: 32px 20px;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(232, 227, 220, 0.9), transparent 38%),
+    radial-gradient(circle at 85% 85%, rgba(207, 198, 187, 0.42), transparent 34%),
+    var(--bg);
+  display: grid;
+  place-items: center;
+}
+
+.auth-shell {
+  width: 100%;
+  max-width: 1120px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.95fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.brand-panel,
+.auth-card {
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.brand-panel {
+  padding: 48px 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-panel::after {
+  content: "";
+  position: absolute;
+  right: -120px;
+  top: -120px;
+  width: 280px;
+  height: 280px;
+  background: linear-gradient(160deg, rgba(232, 227, 220, 0.8), rgba(207, 198, 187, 0.26));
+  border-radius: 50%;
+}
+
+.brand-kicker {
+  margin: 0;
+  color: var(--text-secondary);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.brand-title {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-family: "Bodoni MT", "Didot", "Times New Roman", serif;
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1.05;
+  font-weight: 500;
+  max-width: 16ch;
+}
+
+.brand-description {
+  color: var(--text-secondary);
+  max-width: 48ch;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.brand-points {
+  margin-top: 28px;
+  margin-bottom: 0;
+  padding-left: 20px;
+  color: var(--text-primary);
+  line-height: 1.9;
+}
+
+.auth-card {
+  padding: 28px;
+  align-self: center;
+}
+
+.auth-switch {
+  width: 100%;
+  background: var(--primary);
+  border-radius: 12px;
+  padding: 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.auth-tab {
+  text-align: center;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 10px 12px;
+  transition: 0.2s ease;
+}
+
+.auth-tab.active {
+  background: var(--surface);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-soft);
+}
+
+.auth-title {
+  margin: 0;
+  font-family: "Bodoni MT", "Didot", "Times New Roman", serif;
+  font-size: 34px;
+  font-weight: 500;
+}
+
+.auth-subtitle {
+  margin-top: 10px;
+  margin-bottom: 24px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.auth-form {
+  display: grid;
+  gap: 12px;
+}
+
+.field-label {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.field-helper {
+  margin: -6px 0 2px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.field-input {
+  width: 100%;
+  border: 1px solid rgba(44, 44, 44, 0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--surface);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field-input:focus {
+  border-color: rgba(44, 44, 44, 0.25);
+  box-shadow: 0 0 0 4px rgba(232, 227, 220, 0.8);
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.option-chip {
+  border: 1px solid rgba(44, 44, 44, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 11px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.option-chip:hover {
+  transform: translateY(-1px);
+  border-color: rgba(44, 44, 44, 0.24);
+  box-shadow: var(--shadow-soft);
+  color: var(--text-primary);
+}
+
+.option-chip.active {
+  border-color: rgba(44, 44, 44, 0.34);
+  background: linear-gradient(160deg, rgba(232, 227, 220, 0.82), rgba(255, 255, 255, 0.95));
+  color: var(--text-primary);
+  box-shadow: var(--shadow-soft);
+}
+
+.inline-links {
+  margin-top: 6px;
+  margin-bottom: 2px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.inline-links a {
+  color: var(--text-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.inline-links a:hover {
+  text-decoration: underline;
+}
+
+.error-text {
+  margin: 2px 0 0;
+  color: var(--danger);
+  font-size: 13px;
+}
+
+.primary-button {
+  margin-top: 8px;
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  background: var(--text-primary);
+  color: #fff;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.primary-button:hover {
+  opacity: 0.92;
+}
+
+.primary-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.home-wrap {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  padding: 24px;
+}
+
+.home-card {
+  width: 100%;
+  max-width: 620px;
+  border-radius: 18px;
+  background: var(--surface);
+  padding: 30px;
+  box-shadow: var(--shadow-card);
+}
+
+.home-title {
+  margin-top: 0;
+  font-family: "Bodoni MT", "Didot", serif;
+  font-size: 36px;
+}
+
+.home-muted {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 960px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-panel {
+    padding: 34px 28px;
+  }
+
+  .auth-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 540px) {
+  .option-grid {
+    grid-template-columns: 1fr;
+  }
+}

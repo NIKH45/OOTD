@@ -1,0 +1,31 @@
+{
+  "feature": "profile_option_chips",
+  "goal": "Use predefined chip-based options for gender and body type in profile completion, and route incomplete profiles after login",
+  "changes": {
+    "complete_profile": {
+      "gender_input": "replace text input with option chips",
+      "body_type_input": "replace text input with option chips",
+      "no_dropdown": true,
+      "values": {
+        "gender": ["Woman", "Man", "Non-binary", "Prefer not to say"],
+        "body_type": ["Slim", "Athletic", "Balanced", "Curvy", "Plus"]
+      }
+    },
+    "login_flow": {
+      "condition": "if gender/bodyType missing",
+      "action": "redirect to /complete-profile?from=login"
+    },
+    "styling": {
+      "theme": "neutral elegance",
+      "effects": ["soft shadow", "hover lift", "active state highlight"],
+      "responsive": true
+    }
+  },
+  "files": [
+    "ootd-frontend/web/pages/complete-profile.jsx",
+    "ootd-frontend/web/pages/login.jsx",
+    "ootd-frontend/web/styles/globals.css",
+    "ootd-frontend/web/notes/auth-profile-options-notes.txt",
+    "ootd-frontend/web/prompts/auth-profile-options.json"
+  ]
+}

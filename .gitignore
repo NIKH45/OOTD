@@ -1,17 +1,26 @@
 # Node modules
 node_modules/
 ootd-backend/node_modules/
+ootd-frontend/mobile/node_modules/
+ootd-frontend/web/node_modules/
 
 # Environment variables (SECRET)
 .env
 *.env
 
 # Ignore prompt folder
-prompt/
+ootd-backend/prompt/
+ootd-frontend/mobile/prompt/
+ootd-frontend/web/prompt/
 
 # Build output
 dist/
 ootd-backend/dist/
+.next/
+ootd-frontend/web/.next/
 
 ## Ignore notes folder
 notes/
+ootd-backend/notes/
+ootd-frontend/mobile/notes/
+ootd-frontend/web/notes/

@@ -1,0 +1,121 @@
+{
+  "role": "senior_frontend_engineer",
+  "task": "IMPLEMENT_FEATURE_WITH_DOCUMENTATION",
+  "project_context": {
+    "project_name": "OOTD",
+    "architecture": "Expo (React Native Web + Mobile)",
+    "constraints": [
+      "use TypeScript",
+      "use functional components with hooks",
+      "keep code reusable and modular",
+      "no paid libraries",
+      "clean UI and responsive design",
+      "beginner-friendly implementation"
+    ]
+  },
+  "feature": {
+    "name": "Signup Screen",
+    "description": "Create a signup screen with form validation and API integration",
+    "requirements": [
+      "create signup screen UI with all input fields",
+      "fields: email, password, username, gender, age, height, weight, location",
+      "validate required fields",
+      "validate email format",
+      "handle form state using React hooks",
+      "show error messages for invalid inputs",
+      "on submit call backend API /auth/signup",
+      "store JWT token after successful signup",
+      "navigate to Home screen after success"
+    ],
+    "ui_behavior": {
+      "inputs": [
+        "email (text input)",
+        "password (secure input)",
+        "username",
+        "gender",
+        "age (numeric)",
+        "height (numeric)",
+        "weight (numeric)",
+        "location"
+      ],
+      "buttons": [
+        "Signup button"
+      ],
+      "states": [
+        "loading state during API call",
+        "error state for validation",
+        "success navigation"
+      ]
+    },
+    "api_integration": {
+      "endpoint": "POST /auth/signup",
+      "base_url": "http://localhost:5000",
+      "request_body": {
+        "email": "string",
+        "password": "string",
+        "username": "string",
+        "gender": "string",
+        "age": "number",
+        "height": "number",
+        "weight": "number",
+        "location": "string"
+      },
+      "success_response": {
+        "token": "string",
+        "user": "object"
+      }
+    },
+    "state_management": [
+      "use useState for form fields",
+      "use useState for loading and error states"
+    ],
+    "navigation": {
+      "after_success": "navigate to Home screen"
+    },
+    "storage": {
+      "store_token": "use AsyncStorage or local storage depending on platform"
+    },
+    "validation_rules": [
+      "all fields required",
+      "email must be valid format",
+      "password minimum length 6",
+      "age, height, weight must be positive numbers"
+    ],
+    "edge_cases": [
+      "empty fields",
+      "invalid email format",
+      "API failure",
+      "network error"
+    ]
+  },
+  "output_requirements": {
+    "code_only": true,
+    "include_comments": true,
+    "file_structure": [
+      "app/(auth)/signup.tsx",
+      "components/FormInput.tsx",
+      "services/api.ts",
+      "utils/validation.ts",
+      "notes/frontend-signup-notes.txt",
+      "prompts/frontend-signup.json"
+    ]
+  },
+  "documentation_requirements": {
+    "notes_file": "notes/frontend-signup-notes.txt",
+    "format": "plain text",
+    "content": [
+      "How form handling works in React Native using useState",
+      "How validation is implemented",
+      "How API calls are made using fetch or axios",
+      "How AsyncStorage/localStorage works",
+      "How navigation works in Expo Router",
+      "Difference between controlled and uncontrolled inputs",
+      "Best practices for form handling in frontend"
+    ],
+    "style": "beginner-friendly with examples"
+  },
+  "prompt_storage": {
+    "save_prompt_to": "prompts/frontend-signup.json",
+    "include_full_prompt": true
+  }
+}
